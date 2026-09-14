@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vending Machine — AFD</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen">
+
+<div class="app-content max-w-[1700px] mx-auto px-5 py-10">
+
+  <header class="hero mb-8">
+    <div class="hero-title">
+      <h1>Máquina de 30 centavos </h1>
+    </div>
+    <p class="text-[var(--muted)] mt-3 max-w-xl">Coloque moedas de 5, 10 ou 25 centavos e acompanhe o caminho que o autômato percorre até liberar o refri — com troco, se sobrar.</p>
+  </header>
+
+  <div class="grid md:grid-cols-2 gap-10">
+
+    <!-- MACHINE -->
+    <div class="machine-shell rounded-2xl p-5">
+      <div class="machine-label">REFRI &amp; LÓGICA <span>nº 30</span></div>
+      <div class="rivet-row flex justify-between mb-3">
+        <div class="rivet"></div><div class="rivet"></div><div class="rivet"></div><div class="rivet"></div>
+      </div>
+
+      <div class="machine-heading flex items-center justify-between mb-4">
+        <h2 class="font-semibold text-lg">COLOQUE A MOEDA</h2>
+        <span id="status-pill" class="mono text-[11px] px-2 py-1 rounded-full bg-black/30 text-[var(--muted)]">aguardando moedas</span>
+      </div>
+
+      <!-- product window -->
+      <div class="product-window led-display rounded-lg h-20 mb-4 flex items-center justify-center overflow-hidden">
+        <span id="product-slot" class="opacity-0" aria-label="Garrafa liberada">
+          <svg class="product-bottle" viewBox="0 0 64 96" aria-hidden="true">
+            <path d="M24 5h16v13l7 9v55c0 5-4 9-9 9H26c-5 0-9-4-9-9V27l7-9V5Z" fill="#f5d65d" stroke="#28312b" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M23 5h18v9H23z" fill="#d5533a" stroke="#28312b" stroke-width="4"/>
+            <path d="M19 42h27v25H19z" fill="#3f7770" stroke="#28312b" stroke-width="3"/>
+            <path d="M24 51h17" stroke="#fff8e9" stroke-width="3" stroke-linecap="round"/>
+            <path d="M22 30c5-4 15-5 22-1" fill="none" stroke="#fff8e9" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+          </svg>
+        </span>
+        <span id="product-idle" class="mono text-xs text-[var(--muted)]">[ refri sai por aqui ]</span>
+      </div>
+
+      <!-- credit display -->
+      <div class="credit-window led-display rounded-lg px-4 py-3 mb-4 flex items-center justify-between">
+        <span class="mono text-xs text-[var(--muted)]">SEU CRÉDITO</span>
+        <span id="credit-display" class="led-text mono text-2xl">0¢</span>
+      </div>
+
+      <!-- coin buttons -->
+      <div class="coin-controls grid grid-cols-3 gap-3 mb-4">
+        <button data-coin="5" class="coin-btn h-16" style="background:var(--coin5)">5¢</button>
+        <button data-coin="10" class="coin-btn h-16" style="background:var(--coin10); color:#fff">10¢</button>
+        <button data-coin="25" class="coin-btn h-16" style="background:var(--coin25); color:#fff">25¢</button>
+      </div>
+
+      <!-- post-purchase decision -->
+      <div id="decision-panel" class="hidden grid grid-cols-2 gap-3 mb-1">
+        <button id="btn-withdraw" class="rounded-lg py-2.5 text-sm font-semibold bg-[var(--led)] text-black">Retirar troco</button>
+        <button id="btn-continue" class="rounded-lg py-2.5 text-sm font-semibold bg-white/10 text-[var(--ink)] border border-white/15">Continuar comprando</button>
+      </div>
+      <p id="no-change-note" class="hidden mono text-[11px] text-[var(--muted)] text-center mt-1">sem troco — pronto para nova compra</p>
+    </div>
+
+    <!-- AUTOMATON VIEW -->
+    <div class="automaton-card rounded-2xl p-5 bg-[var(--panel)] border border-white/5 flex flex-col">
+      <div class="flex items-baseline justify-between mb-4"><h2 class="font-semibold text-lg">Mapa do autômato</h2></div>
+
+      <div class="flex items-center mb-1" id="track">
+        <!-- state nodes injected by JS -->
+      </div>
+      <div class="flex justify-between mono text-[10px] text-[var(--muted)] mb-6 px-1">
+        <span>q0</span><span>≥ 30 → dispensa</span>
+      </div>
+
+      <h3 class="mono text-xs text-[var(--muted)] mb-2">transições:</h3>
+      <div id="terminal" class="terminal rounded-lg p-3 flex-1 min-h-[220px] overflow-y-auto"></div>
+
+      <button id="btn-reset" class="mono text-[11px] text-[var(--muted)] mt-3 self-start hover:text-[var(--ink)] underline underline-offset-2">reiniciar simulação</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

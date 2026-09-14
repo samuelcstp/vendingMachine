@@ -1,0 +1,454 @@
+:root {
+  --bg: #f5efe2;
+  --panel: #fff9ed;
+  --machine: #e8c54b;
+  --machine-dark: #c99828;
+  --led-bg: #263530;
+  --led: #e8ff9b;
+  --coin5: #f5d65d;
+  --coin10: #df6d43;
+  --coin25: #3f7770;
+  --ink: #28312b;
+  --muted: #6e7669;
+  --ring: #d45136;
+}
+
+* {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+.mono {
+  font-family: 'DM Mono', monospace;
+}
+
+body {
+  color: var(--ink);
+  background-color: var(--bg);
+  background-image: radial-gradient(#d8cfbd 0.8px, transparent 0.8px);
+  background-size: 13px 13px;
+}
+
+body::before {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  opacity: 0.2;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 5px,
+    rgba(79, 58, 29, 0.06) 6px
+  );
+}
+
+.app-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cabeçalho */
+.hero {
+  position: relative;
+}
+
+.kicker {
+  color: #a74532;
+  font: 500 11px/1 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.kicker span {
+  padding: 0 0.35rem;
+  color: #ddac32;
+}
+
+.hero-title {
+  display: flex;
+  gap: 1.25rem;
+  align-items: end;
+}
+
+.hero h1 {
+  font-size: clamp(2.15rem, 5vw, 3.7rem);
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.055em;
+}
+
+.price-tag {
+  width: 72px;
+  height: 72px;
+  padding-top: 13px;
+  color: #563d10;
+  border: 2px dashed #815f16;
+  border-radius: 50%;
+  background: #e7c44b;
+  box-shadow: 3px 3px 0 rgba(99, 70, 18, 0.15);
+  font: 11px/1.02 'Patrick Hand', cursive;
+  text-align: center;
+  transform: rotate(9deg);
+}
+
+.price-tag strong {
+  font: 700 22px/1 'DM Mono', monospace;
+}
+
+/* Máquina */
+.machine-shell {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 1 / 1;
+  padding: 0 !important;
+  overflow: visible;
+  border: 0;
+  background: #ddae2d;
+  box-shadow: 7px 7px 0 #a77723;
+}
+
+.machine-shell::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background: url('image.png') center / cover no-repeat;
+  filter: sepia(0.3) saturate(0.8) contrast(1.08);
+}
+
+.machine-shell::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  opacity: 0.22;
+  border-radius: inherit;
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 12px,
+    #fff 13px 14px
+  );
+}
+
+.machine-shell > * {
+  position: absolute;
+  z-index: 1;
+}
+
+.rivet-row,
+.machine-label {
+  display: none;
+}
+
+.machine-heading {
+  position: absolute;
+  top: -1.8rem;
+  left: 0;
+  display: flex;
+  width: 100%;
+  gap: 0.7rem;
+  align-items: center;
+  justify-content: flex-start !important;
+  margin: 0 !important;
+}
+
+.machine-heading h2 {
+  color: #403315;
+  font-size: clamp(13px, 1.15vw, 17px);
+}
+
+.machine-heading #status-pill {
+  display: inline-block;
+}
+
+/* Área de retirada: acompanha a abertura no canto inferior esquerdo. */
+.product-window {
+  top: 66%;
+  left: 20%;
+  width: 38%;
+  height: 12% !important;
+  margin: 0 !important;
+  border: 0;
+  border-radius: 2px !important;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-window #product-idle {
+  color: #dce3cc;
+  font-size: clamp(9px, 0.7vw, 11px);
+}
+
+.product-window #product-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-bottle {
+  width: 34px;
+  height: 52px;
+  filter: drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.28));
+}
+
+/* Visor no topo do painel direito da imagem. */
+.credit-window {
+  top: 13%;
+  left: 72%;
+  width: 14%;
+  height: 10%;
+  display: flex !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0.25rem !important;
+  border: 0;
+  border-radius: 1px !important;
+  background: transparent;
+  box-shadow: none;
+}
+
+.credit-window span:first-child {
+  display: none;
+}
+
+.credit-window #credit-display {
+  font-size: clamp(13px, 1.1vw, 17px);
+}
+
+/* As três moedas ficam sobre o teclado. */
+.coin-controls {
+  top: 36.5%;
+  left: 72%;
+  width: 14%;
+  height: 13%;
+  grid-template-columns: repeat(2, 1fr) !important;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0 !important;
+  margin: 0 !important;
+}
+
+.coin-controls .coin-btn {
+  min-width: 0;
+  height: auto !important;
+  border-width: 1px;
+  border-style: solid;
+  justify-self: center;
+  width: 84%;
+  box-shadow: 1px 2px 0 rgba(26, 26, 20, 0.5);
+  font-size: clamp(10px, 0.8vw, 12px);
+}
+
+.coin-controls .coin-btn:last-child {
+  grid-column: 1 / -1;
+  width: 42%;
+}
+
+#decision-panel {
+  position: absolute;
+  z-index: 2;
+  top: 82%;
+  left: 15%;
+  width: 55%;
+  gap: 5px !important;
+  margin: 0 !important;
+}
+
+#decision-panel button {
+  padding: 0.4rem 0.2rem;
+  font-size: clamp(10px, 0.75vw, 12px);
+  line-height: 1.05;
+}
+
+#no-change-note {
+  position: absolute;
+  z-index: 2;
+  top: 81%;
+  left: 15%;
+  width: 55%;
+  color: #443719;
+  font-size: clamp(9px, 0.65vw, 11px);
+}
+
+.led-display {
+  border: 3px solid #1b2925;
+  background: var(--led-bg);
+  box-shadow: inset 0 0 18px rgba(229, 255, 140, 0.12),
+    2px 2px 0 rgba(73, 54, 19, 0.45);
+}
+
+.led-text {
+  color: var(--led);
+  text-shadow: 0 0 7px rgba(232, 255, 155, 0.45);
+}
+
+.coin-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  color: #3c321b;
+  border: 3px dashed rgba(49, 39, 18, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 5px 0 rgba(69, 48, 18, 0.4),
+    inset 1px 2px 0 rgba(255, 255, 255, 0.3);
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.coin-btn:hover {
+  transform: rotate(-3deg) translateY(-1px);
+}
+
+.coin-btn:active {
+  box-shadow: 0 1px 0 rgba(69, 48, 18, 0.4);
+  transform: translateY(4px);
+}
+
+.coin-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  filter: grayscale(0.45);
+}
+
+.coin-btn:disabled:active {
+  transform: none;
+}
+
+#btn-withdraw,
+#btn-continue {
+  border-radius: 4px;
+  box-shadow: 2px 2px 0 rgba(64, 48, 23, 0.36);
+}
+
+#btn-withdraw {
+  color: #fff8e9;
+  border-color: #a9472c;
+  background: var(--coin10);
+}
+
+#btn-continue {
+  color: #fff8e9;
+  border-color: #28584f;
+  background: var(--coin25);
+}
+
+/* Painel do autômato */
+.automaton-card {
+  position: relative;
+  border: 2px solid #a5afa0;
+  background: var(--panel);
+  box-shadow: 6px 6px 0 #d2c7b4;
+}
+
+.machine-shell h2,
+.automaton-card h2 {
+  letter-spacing: -0.035em;
+}
+
+.scribble {
+  color: #b14c36;
+  font: 20px 'Patrick Hand', cursive;
+  transform: rotate(-4deg);
+}
+
+.state-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  color: var(--muted);
+  border: 2px solid #8c9b8b;
+  border-radius: 50%;
+  background: #fffdf6;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  transition: all 0.25s ease;
+}
+
+.state-node.active {
+  color: #9e392b;
+  border-color: var(--ring);
+  background: #fff0c9;
+  box-shadow: 0 0 0 4px rgba(212, 81, 54, 0.15);
+  transform: rotate(-7deg) scale(1.1);
+}
+
+.track-line {
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    #99a594 0 5px,
+    transparent 5px 8px
+  );
+}
+
+.terminal {
+  color: #314339;
+  border: 1px solid #aab69f;
+  background: #107e50;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.terminal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: #aab69f;
+}
+
+@keyframes dropdown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) rotate(-10deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(4px) rotate(4deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+.drop-anim {
+  animation: dropdown 0.35s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drop-anim {
+    animation: none;
+  }
+
+  .coin-btn {
+    transition: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .price-tag {
+    width: 62px;
+    height: 62px;
+    padding-top: 10px;
+  }
+
+  .price-tag strong {
+    font-size: 18px;
+  }
+
+  .hero-title {
+    gap: 0.6rem;
+  }
+}
