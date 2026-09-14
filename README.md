@@ -20,4 +20,4 @@ No `script.js`, a lógica principal usa condicionais (`if`/`else`) para verifica
 
 O projeto pode ser acessado pelo GitHub Pages:
 
-[Abrir a simulação](link)
+[Abrir a simulação](https://samuelcstp.github.io/vendingMachine/)
